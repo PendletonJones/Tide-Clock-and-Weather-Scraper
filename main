@@ -1,0 +1,55 @@
+
+import turtle
+import time
+import initial_graphics
+import weather_values
+import james_river
+import piankatank_river
+import poquoson
+import richmond_weather   #Appears to be catching the error here before is gets any further in the code
+
+#Macbook Pro window default display resolution: 1280 x 800
+turtle_screen = turtle.Screen()
+turtle_screen.setup(width=1280, height=800)
+turtle_screen.bgcolor("orange")
+#Sets up initial graphics
+initial_graphics.tide_scale()
+weather_values.weather_info()
+
+#while loop for 1 tide cycle
+delta = 0
+while True:
+
+    timeout = 1480 #input the number of seconds for tide cycle or some smaller number to simulate graphics
+    james_river.james_align()
+    piankatank_river.piankatank_align()
+    poquoson.poquoson_align()
+    counter = 1           #counter simplifies conditions for functions
+    animation_start_time = time.perf_counter()
+    delay = 5 - delta      
+    print(delay)
+    time.sleep(delay)     # allows clock to catch up after runtime delays (one 5 minute period of the tide cycle is retained in the outer while loop)
+    
+    
+    '''
+    while loop for each 5 minute increment of the tide cycle
+    updates graphics and weather values every 5 minutes
+    '''
+    while time.perf_counter() < animation_start_time + timeout:
+        weather_values.james_t.clear()
+        weather_values.gwynn_t.clear()
+        weather_values.poq_t.clear()
+        james_river.james_animation(counter)
+        piankatank_river.piankatank_animation(counter)
+        poquoson.poquoson_animation(counter)
+        weather_values.slack_update(james_river.james_slack_calc(counter), piankatank_river.gwynn_slack_calc(counter), poquoson.poq_slack_calc(counter))
+        richmond_weather.get_richmond_weather()               #This is where the weather scraper is called
+        time.sleep(5)
+        counter += 1
+
+    animation_end_time = time.perf_counter()
+    delta = ((animation_end_time - animation_start_time) - 1480)
+    print(delta)
+
+
+turtle.mainloop()
