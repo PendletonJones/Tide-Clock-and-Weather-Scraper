@@ -1,8 +1,4 @@
-#This module determines current tide height at the James River Fall Line
-#Tide is based on a lunar day, 2 tide cycles
-#Will update every half minute (30 seconds)
-#Lunar day has 2980 half minutes
-
+#This module determines current tide height for animation and timedelta purposes at the Piankatank River mouth
 
 import turtle
 import datetime
