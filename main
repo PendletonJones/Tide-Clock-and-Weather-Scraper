@@ -1,4 +1,3 @@
-
 import turtle
 import time
 import initial_graphics
@@ -6,50 +5,61 @@ import weather_values
 import james_river
 import piankatank_river
 import poquoson
-import richmond_weather   #Appears to be catching the error here before is gets any further in the code
+import r_weather
+import pr_weather
+import p_weather
 
 #Macbook Pro window default display resolution: 1280 x 800
-turtle_screen = turtle.Screen()
-turtle_screen.setup(width=1280, height=800)
-turtle_screen.bgcolor("orange")
-#Sets up initial graphics
+
+'''
+'time_from_closest_low' allows setting of the clock even when the current time does not match up with 
+the actual low of the default clock. The number input should be the number of 5 minute increments to or from
+the closest low, with future times being represented as negative values. Poquoson is currently the default tide clock
+'''
+time_from_closest_low = -7
+
+initial_graphics.win_open()
 initial_graphics.tide_scale()
 weather_values.weather_info()
 
-#while loop for 1 tide cycle
-delta = 0
+'''
+The 'delta' represents one 5 minute period removed from th tide clock to account for process lag times. Any lag time over
+the given timer in the inner while loop will be subtracted from 'delta' to tell the program how long to sleep before 
+restarting so as to recalibrate the clock each tide cycle
+'''
+delta = 300       #initially set to 300 seconds as to not cuase a delay when starting the clock
+
 while True:
 
-    timeout = 1480 #input the number of seconds for tide cycle or some smaller number to simulate graphics
-    james_river.james_align()
-    piankatank_river.piankatank_align()
-    poquoson.poquoson_align()
-    counter = 1           #counter simplifies conditions for functions
+    timeout = 44400
+    counter = 0         #each counter increment of 1 represents the passing of a 5 minute period
     animation_start_time = time.perf_counter()
-    delay = 5 - delta      
-    print(delay)
-    time.sleep(delay)     # allows clock to catch up after runtime delays (one 5 minute period of the tide cycle is retained in the outer while loop)
-    
-    
-    '''
-    while loop for each 5 minute increment of the tide cycle
-    updates graphics and weather values every 5 minutes
-    '''
+    delay = 300 - delta      #clock recalibration value
+    time.sleep(delay)        #clock recalibration
+    james_river.james_align(time_from_closest_low)
+    piankatank_river.piank_align(time_from_closest_low)
+    poquoson.poq_align(time_from_closest_low)
+    weather_values.weather_update(r_weather.rich_weath(), pr_weather.pr_weath(), p_weather.poq_weath())
+    weather_values.wind_update(r_weather.rich_wind(), pr_weather.pr_wind(), p_weather.poq_wind())
+
+
     while time.perf_counter() < animation_start_time + timeout:
-        weather_values.james_t.clear()
-        weather_values.gwynn_t.clear()
-        weather_values.poq_t.clear()
-        james_river.james_animation(counter)
-        piankatank_river.piankatank_animation(counter)
-        poquoson.poquoson_animation(counter)
-        weather_values.slack_update(james_river.james_slack_calc(counter), piankatank_river.gwynn_slack_calc(counter), poquoson.poq_slack_calc(counter))
-        richmond_weather.get_richmond_weather()               #This is where the weather scraper is called
-        time.sleep(5)
+
+        james_river.james_animation(counter, time_from_closest_low)
+        piankatank_river.piank_animation(counter, time_from_closest_low)
+        poquoson.poq_animation(counter, time_from_closest_low)
+        weather_values.slack_update(james_river.james_slack_calc(counter, time_from_closest_low), piankatank_river.piank_slack_calc(counter, time_from_closest_low), poquoson.poq_slack_calc(counter, time_from_closest_low))
+        time.sleep(300)
         counter += 1
 
     animation_end_time = time.perf_counter()
-    delta = ((animation_end_time - animation_start_time) - 1480)
-    print(delta)
+    delta = ((animation_end_time - animation_start_time) - timeout)
+
+    if delta > 300:
+        print("Excess process time of" + str(delta))
 
 
-turtle.mainloop()
+    turtle.mainloop()
+
+
+
