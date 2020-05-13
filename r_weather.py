@@ -40,8 +40,8 @@ def rich_wind():
     #OpenWeatherMap API Key  '02ef7d3c631464e3f8249a426469f7dc'
 
     payload = {
-        'username': 'bluther15',
-        'pass': '$MALLMOUTH0penwe@ther'
+        'username': '***********',
+        'pass': '************'
         }
 
 
