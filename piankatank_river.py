@@ -4,9 +4,9 @@ import turtle
 import datetime
 import time
 
-#offset represents # of 5 minute periods the given tide is from the standard tide
+#offset represents # of 5 minute periods the given tide is from the standard tide of Poquoson
 offset = -11
-pr_t = turtle.Turtle()
+pr_t = turtle.Turtle() # pr_t represents the Piankatank tide height and direction
 
 def piank_align(time_from_closest_low):
     pr_t.color("cyan")
