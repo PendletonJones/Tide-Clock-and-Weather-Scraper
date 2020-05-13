@@ -1,9 +1,6 @@
-'''
-This module determines current tide height at the James River Fall Line
-Tide is based on a lunar day, 2 tide cycles
-Will update every half minute (30 seconds)
-Lunar day has 2980 half minutes
-'''
+
+#This module determines current tide height for animation and timedelta purposes at the James River Fall Line
+
 
 
 import turtle
@@ -14,8 +11,8 @@ import time
 
 # j represents time, in 5 minute periods, relative to james river lunar tide cycle
 
-#clockset_delta = tide_calibration.cle
-offset = 65    #plus or minus number of 5 minute periods off from standard
+
+offset = 65    #plus or minus number of 5 minute periods off from standard clock
 j_t = turtle.Turtle()
 
 def james_align(time_from_closest_low):
