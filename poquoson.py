@@ -1,15 +1,12 @@
-#This module determines current tide height at the Piankatank River Mouth
-#Tide is based on a lunar day, 2 tide cycles
-#Will update every half minute (30 seconds)
-#Lunar day has 2980 half minutes
-
+#This module determines current tide height for animation and timedelta purposes at Plum Island on the Poquoson River
+#This is the clock from which the others are offset from (offset = 0)
 
 import turtle
 import datetime
 import time
 
 p_t = turtle.Turtle()
-# j represents time relative to james river lunar tide cycle
+# p_t represents the Poquoson tide high and direction
 offset = 0
 
 def poq_align(time_from_closest_low):
