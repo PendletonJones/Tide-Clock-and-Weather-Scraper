@@ -6,10 +6,7 @@
 import turtle
 import datetime
 import time
-#import tide_calibration
 
-
-# j represents time, in 5 minute periods, relative to james river lunar tide cycle
 
 
 offset = 65    #plus or minus number of 5 minute periods off from standard clock
