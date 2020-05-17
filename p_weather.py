@@ -51,3 +51,8 @@ def poq_wind():
         wind = r.json()["wind"]
         wind_current = wind["speed"]
         return wind_current
+    
+    
+if __name__ == "__main__":
+    print(poq_weath())
+    print(poq_wind())
