@@ -10,6 +10,6 @@ The Open Weather Map API is used to request weather data for the Lat Long of the
 is currently only called every tide cycle (outer while loop). The next update will include another file to which the weather values are 
 written, eliminating the requirement for the 'main.py' program to call the requests itself. 
 
-Based on high processor usage of having this on an ifinite loop, probably needs to be reconfigured with a crontab and sit on an API server instead of as an ever running script on my computer. 
+Based on high processor usage of having this on an ifinite loop, probably needs to be reconfigured as a cronjob and sit on an API server instead of as an ever running script on my computer. 
 
 
