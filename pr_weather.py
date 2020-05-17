@@ -47,3 +47,7 @@ def pr_wind():
         wind = r.json()["wind"]
         wind_current = wind["speed"]
         return wind_current
+    
+if __name__ == "__main__":
+    print(pr_weath())
+    print(pr_wind())
