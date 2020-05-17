@@ -122,4 +122,5 @@ def wind_update(wind1, wind2, wind3):
     james_wind.write(str(wind1) + " mph", align="right", font=("Arial", 16, "normal"))
     pr_wind.write(str(wind2) + " mph", align="right", font=("Arial", 16, "normal"))
     poq_wind.write(str(wind3) + " mph", align="right", font=("Arial", 16, "normal"))
+    
 
