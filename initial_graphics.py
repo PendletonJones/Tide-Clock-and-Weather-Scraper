@@ -85,3 +85,6 @@ def tide_scale():
     poq.fd(20)
     poq.bk(40)
     
+if __name__ == "__main__":
+    win_open()
+    tide_scale()
