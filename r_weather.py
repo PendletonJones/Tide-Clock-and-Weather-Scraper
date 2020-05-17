@@ -52,4 +52,7 @@ def rich_wind():
         wind = r.json()["wind"]
         wind_current = wind["speed"]
         return wind_current
-
+    
+ if __name__ == "__main__":
+    print(rich_weath())
+    print(rich_wind())
